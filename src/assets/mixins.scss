@@ -1,0 +1,65 @@
+@mixin tag-style {
+	padding: 2px 6px 2px 6px;
+	border-radius: 5px;
+	font-weight: bold;
+
+	@media (max-width: 800px) {
+		width:5rem;
+	}
+}
+
+
+
+@mixin flexer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+
+@mixin checkbox-styles {
+
+	& > div {
+		margin: 10px 0 0 0;
+	}
+
+	input[type="checkbox"] {
+	  display: none;
+	}
+
+	/* Style the custom checkbox */
+	input[type="checkbox"] + label {
+	  display: inline-block;
+	  position: relative;
+	  padding-left: 29px; /* Space for the custom checkbox */
+	  cursor: pointer;
+	}
+
+	/* Style the custom checkbox indicator */
+	input[type="checkbox"] + label:before {
+	  content: "";
+	  display: inline-block;
+	  position: absolute;
+	  left: 0;
+	  top: 0;
+	  width: 18px;
+	  height: 18px;
+	  border: 2px solid green;
+	  border-radius: 4px;
+	}
+
+	/* Style the custom checkbox when checked */
+	input[type="checkbox"]:checked + label:before {
+	  content: "■";
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  position: absolute;
+	  width: 18px;
+	  height: 18px;
+	  color: white;
+	  background-color: green;
+	  border: 2px solid green;
+	  border-radius: 4px;
+	}
+}
