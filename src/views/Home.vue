@@ -7,6 +7,7 @@
 	import MobileFilter from '../components/MobileFilter.vue'
 	import animationJson from '../assets/loading.json'
 	import { Vue3Lottie } from 'vue3-lottie'
+	import data from "../../jobs.json"
 	import {onMounted, reactive, watch, computed} from 'vue'
 	import { 
 		developerTitles,
@@ -35,6 +36,7 @@
 
 
 	const getJobs = async() => {
+		console.log("API endpoint: ", import.meta.env.VITE_API_ENDPOINT)
 		try {
 			const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}`)
 		    const data = await response.json()
@@ -43,17 +45,18 @@
 			uiState.loaded = true
 		}
 		catch(exception){
+			dataState.jobs = [...data.jobs]
+			dataState.previousJobsCopy = [...data.jobs]
+			uiState.loaded = true
 			console.log("Something went wrong: ", exception)
 		}
 	}
 
 	const filterTagHandler = () => {
-		console.log("clicked")
 		const filteredJobs = dataState.jobs.filter(job => {
 	      return job.minSalary > 100000;
 	    })
 		uiState.filters.push('top-paying')
-		console.log(uiState.filters)
 	    dataState.jobs = filteredJobs
 	}
 
@@ -83,9 +86,6 @@
 					return financeAndAccountingTitles.some(keyword => jobTitle.includes(keyword.toLowerCase()));
 			}
 
-			// if(category.toLowerCase() == "development"){
-
-			// }
 		});
 		dataState.jobs = filteredJobs
 
